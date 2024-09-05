@@ -112,6 +112,8 @@ Chavez, P. S. & others. (1996). Image-based atmospheric corrections-revisited an
 
 Fernández, C., de Castro, C., Garcı́a, L., Calleja, M. E., Niño, R., Fraile, S., & Sousa, R. (2023). Evaluación del impacto de la superresolución sobre imágenes multiespectrales GEOSAT-2. Revista de Teledetección, 61, 83–96.
 
+Fernández, C., De Castro, C., Calleja, M. E., Sousa, R., Niño, R., García, L., Fraile, S., & Molina, I. (2023). GEOSAT 2 Atmospherically Corrected Images: Algorithm Validation. ECRS 2023, 64. https://doi.org/10.3390/ECRS2023-16296
+
 Mahiny, A. S., & Turner, B. J. (2007). A comparison of four common atmospheric correction methods. Photogrammetric Engineering & Remote Sensing, 73(4), 361–368.
 
 [Murphy, S. & Hård, J. `gee-atmcorr-S2` repository](https://github.com/samsammurphy/gee-atmcorr-S2/tree/master)
