@@ -4,6 +4,8 @@ address: Universidad de Zaragoza
 ---
 # GEOSAT Image Processing
 
+[![DOI](https://zenodo.org/badge/852767833.svg)](https://zenodo.org/doi/10.5281/zenodo.13694180)
+
 Apply atmospheric corrections to GEOSAT images. The code is adaptable to all types of images, but it has been developed to work with GEOSAT ones and with the following characteristics:
 
 - PM4 or *Bundle*: panchromatic image (1m GSD), and the four bands of the multispectral image (3m GSD).
