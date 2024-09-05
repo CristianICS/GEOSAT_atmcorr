@@ -108,5 +108,17 @@ python D:\geosat\geosat_atmcorrection.py -folders=D:\geosat\data -atm_key=6S -ge
 
 ## References
 
+Chavez, P. S. & others. (1996). Image-based atmospheric corrections-revisited and improved. Photogrammetric Engineering and Remote Sensing, 62(9), 1025–1035.
 
+Fernández, C., de Castro, C., Garcı́a, L., Calleja, M. E., Niño, R., Fraile, S., & Sousa, R. (2023). Evaluación del impacto de la superresolución sobre imágenes multiespectrales GEOSAT-2. Revista de Teledetección, 61, 83–96.
+
+Mahiny, A. S., & Turner, B. J. (2007). A comparison of four common atmospheric correction methods. Photogrammetric Engineering & Remote Sensing, 73(4), 361–368.
+
+[Murphy, S. & Hård, J. `gee-atmcorr-S2` repository](https://github.com/samsammurphy/gee-atmcorr-S2/tree/master)
+ 
+Thuillier, G., Hersé, M., Labs, D., Foujols, T., Peetermans, W., Gillotay, D., Simon, P., & Mandel, H. (2003). The solar spectral irradiance from 200 to 2400 nm as measured by the SOLSPEC spectrometer from the ATLAS and EURECA missions. Solar Physics, 214, 1–22.
+
+Vermote, E. F., Tanré, D., Deuze, J. L., Herman, M., & Morcette, J.-J. (1997). Second simulation of the satellite signal in the solar spectrum, 6S: An overview. IEEE Transactions on Geoscience and Remote Sensing, 35(3), 675–686.
+
+Wilson, R. T. (2013). Py6S: A Python interface to the 6S radiative transfer model. Computers & Geosciences, 51, 166–171.
 
