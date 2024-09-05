@@ -6,7 +6,7 @@ address: Universidad de Zaragoza
 
 Apply atmospheric corrections to GEOSAT images. The code is adaptable to all types of images, but it has been developed to work with GEOSAT ones and with the following characteristics:
 
-- PM4 or *Bundle*: panchromatic image (1m GSD), and the four bands of the multispectral image (4m GSD).
+- PM4 or *Bundle*: panchromatic image (1m GSD), and the four bands of the multispectral image (3m GSD).
 - Processing level L1C (Ortho): Calibrated and radiometrically corrected scaled ToA radiance, orthorectified and resampled.
 
 | Band | Min $\lambda$ (nm) | Max $\lambda$ (nm) | GSD (m) |
