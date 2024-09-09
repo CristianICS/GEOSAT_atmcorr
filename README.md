@@ -97,6 +97,31 @@ conda activate geosat_atmcorr
 
 *Note*: The Google Cloud account ID can be found in the [Google Cloud Console](https://console.cloud.google.com/?hl=en).
 
+## Unzipping files
+
+The GEOSAT images are downloaded in zip folders. To unzip them, execute the following code in python:
+
+```python
+import os
+import zipfile
+
+main_folder = r"D:\GEOSAT"
+
+def unzip(folder):
+    """Unzip folders"""
+    if folder.endswith('.zip'):
+        # Select the location to unzip the folder content
+        unzip_folder_name = os.path.basename(folder).split('.')[0]
+        unzip_folder = os.path.join(os.path.dirname(folder), unzip_folder_name)
+        if not os.path.exists(unzip_folder):
+            # Unzip
+            with zipfile.ZipFile(folder, 'r') as zip_ref:
+                zip_ref.extractall(unzip_folder)
+
+for folder in os.listdir(main_folder):
+    unzip(os.path.join(main_folder, folder))
+```
+
 ## Examples
 
 ```text
