@@ -53,6 +53,30 @@ py6s=1.9.2 (pyhd8ed1ab_0)
 python=3.12.3 (h2628c8c_0_cpython)
 ```
 
+## Descomprimir ficheros
+
+Las imágenes de GEOSAT puden haber sido descargadas en ficheros comprimidos (`.zip`). Pueden descomprimirse todas las carpetas de un directorio ejecutando el siguiente código en python:
+
+```python
+import os
+import zipfile
+
+main_folder = r"D:\GEOSAT"
+
+def unzip(folder):
+    """Unzip folders"""
+    if folder.endswith('.zip'):
+        # Select the location to unzip the folder content
+        unzip_folder_name = os.path.basename(folder).split('.')[0]
+        unzip_folder = os.path.join(os.path.dirname(folder), unzip_folder_name)
+        if not os.path.exists(unzip_folder):
+            # Unzip
+            with zipfile.ZipFile(folder, 'r') as zip_ref:
+                zip_ref.extractall(unzip_folder)
+
+for folder in os.listdir(main_folder):
+    unzip(os.path.join(main_folder, folder))
+```
 ## Aplicar la corrección
 
 Se realiza a través de los siguientes comandos:
