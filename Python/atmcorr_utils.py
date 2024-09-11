@@ -744,6 +744,12 @@ class Geosat:
         else:
             raise ValueError("ARC image is not exist and it's mandatory to perform the desired correction.")
     
+    def is_duplicated(self, path):
+        """Check if an image is duplicated."""
+        if os.path.exists(path):
+            err_txt = f'{os.path.basename(path)} is already exist. Stop the image creation.'
+            raise ValueError(err_txt)
+
     def get_atm_formulas(self, fun: Correction, band_keys: list, **args):
         """
         Create atmcorr formulas by band to insert them inside gdal_calc
@@ -778,7 +784,7 @@ class Geosat:
 
         return(formulas, selected_letters)
     
-    def run_gdal_calc(self, formulas, selected_letters, img_path, atm_key, gdaltype = None):
+    def run_gdal_calc(self, formulas, selected_letters, img_path, out_path, gdaltype = None):
         """Run gdal_calc.Calc function with custom params.
 
         The function must contain each parameters as bands have the image to
@@ -790,7 +796,6 @@ class Geosat:
         :selected_letters: Dict with the band key and its letter which is its
         name inside the formula.
         :img_path: Image to correct path.
-        :atm_key: Atmcorr key to append in the output image name.
         :gdaltype: Data type of the output image.
         """
         # Init the object to store the Calc function arguments
@@ -804,9 +809,6 @@ class Geosat:
             args[letter] = img_path
             # Write the band letter (to identify the band with the letter)
             args[f'{letter}_band']= key
-    
-        # Add the output image
-        output_img = img_path.replace('.tif', (f'_{atm_key}.tif'))
         
         # Write creation options
         args['creation_options'] = ['COMPRESS=DEFLATE', 'PREDICTOR=2']
@@ -816,9 +818,9 @@ class Geosat:
 
         # Construct the final gdal_calc command
         try:
-            gdal_calc.Calc(calc=formulas, outfile=output_img, **args)
+            gdal_calc.Calc(calc=formulas, outfile=out_path, **args)
         except Exception as ex:
-            ex_msg = f'The image {os.path.basename(output_img)} is already exist. Stop the image creation.'
+            ex_msg = f'The image {os.path.basename(out_path)} is already exist. Stop the image creation.'
             self.write_logs(ex_msg)
             print(ex_msg)
 
@@ -843,37 +845,49 @@ class Geosat:
             self.write_logs(f'Init the correction of {img}')
 
             if atm_key == 'ARC':
+                # Check if output image exists
+                img_output = img_path.replace('.tif', (f'_{atm_key}.tif'))
+                self.is_duplicated(img_output)
                 # Create band formulas
                 formulas, lettrs = self.get_atm_formulas(
                     Correction.ARC, band_keys, dim=dim)
                 # Run the gdal_calc .py script from GDAL
-                self.run_gdal_calc(formulas, lettrs, img_path, atm_key)
+                self.run_gdal_calc(formulas, lettrs, img_path, img_output)
 
             elif atm_key == 'DOS':
                 # Check for ARC image
                 img_arc_path = self.find_ARC(img_path)
+                # Check if output image exists
+                img_output = img_arc_path.replace('.tif', (f'_{atm_key}.tif'))
+                self.is_duplicated(img_output)
                 # Create band formulas
                 formulas, lettrs = self.get_atm_formulas(
                     Correction.DOS, band_keys, dim=dim)
                 # Run the gdal_calc .py script from GDAL
-                self.run_gdal_calc(formulas, lettrs, img_arc_path, atm_key)
+                self.run_gdal_calc(formulas, lettrs, img_arc_path, img_output)
 
             elif atm_key == 'COST':
                 # Check for ARC image
                 img_arc_path = self.find_ARC(img_path)
+                # Check if output image exists
+                img_output = img_arc_path.replace('.tif', (f'_{atm_key}.tif'))
+                self.is_duplicated(img_output)
                 # Create band formulas
                 formulas, lettrs = self.get_atm_formulas(
                     Correction.COST, band_keys, dim=dim)
                 # Run the gdal_calc .py script from GDAL
-                self.run_gdal_calc(formulas, lettrs, img_arc_path, atm_key)
+                self.run_gdal_calc(formulas, lettrs, img_arc_path, img_output)
 
             elif atm_key == '6S':
                 # Check for ARC image
                 img_arc_path = self.find_ARC(img_path)
+                # Check if output image exists
+                img_output = img_arc_path.replace('.tif', (f'_{atm_key}.tif'))
+                self.is_duplicated(img_output)
                 # Check if image is a panchromatic one
                 is_pan = img.find('PAN') > 0
                 # Create band formulas
                 formulas, lettrs = self.get_atm_formulas(
                     Correction.sixS, band_keys, dim=dim, is_pan=is_pan, **args)
                 # Run the gdal_calc .py script from GDAL
-                self.run_gdal_calc(formulas, lettrs, img_arc_path, atm_key, 'Float32')
+                self.run_gdal_calc(formulas, lettrs, img_arc_path, img_output, 'Float32')
