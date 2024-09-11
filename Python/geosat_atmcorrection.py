@@ -38,13 +38,13 @@ if __name__ == "__main__":
         atm_key = args['-atm_key']
         geecloud_id = args['-geecloud_id'] if '-geecloud_id' in args.keys() else None
         try:
-          for folder in img_folders:
-            try:
-              img = atm.Geosat(os.path.join(main_folder, folder))
-              print(f'Compute image folder {os.path.basename(folder)}')
-              img.atm_corr(atm_key, **{'gee_id':geecloud_id})
-            except ValueError as ve:
-              print(ve)
+            for folder in img_folders:
+                try:
+                    img = atm.Geosat(os.path.join(main_folder, folder))
+                    print(f'Compute image folder {os.path.basename(folder)}')
+                    img.atm_corr(atm_key, **{'gee_id':geecloud_id})
+                except ValueError as ve:
+                    print(ve)
         except ValueError as ve:
             print(ve)
     except:

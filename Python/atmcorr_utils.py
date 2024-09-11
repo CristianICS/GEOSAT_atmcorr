@@ -406,8 +406,8 @@ class Correction:
 
             # Write log messages
             logs = [
-              f'<ARC band={band_key}>',
-              f'[formula] {formula}'
+                f'<ARC band={band_key}>',
+                f'[formula] {formula}'
             ]
 
             return (formula, logs)
@@ -484,7 +484,7 @@ class Correction:
 
         # Write formula
         formula = (f"(pi * (({band_letter} - {lhaze}) * ({d}**2))) /" +
-                f"({e} * abs(cos({zensol})) * {TAUz})")
+            f"({e} * abs(cos({zensol})) * {TAUz})")
         # Save logs
         logs = [
             f'<COST band={band_key}>',
@@ -609,18 +609,18 @@ class Correction:
         # https://earth.esa.int/eogateway/missions/geosat-2#instruments-section
         # Soruce: GEOSAT-2-Imagery-User-Guide.pdf p. 4
         if is_pan:
-          lowerWav = 0.560
-          upperWav = 0.900
+            lowerWav = 0.560
+            upperWav = 0.900
         else:
-          wavelengts_geosat = {
-              # band-key: [lowerBandEdge, upperBandEdge]
-              1: [0.770, 0.892],
-              2: [0.640, 0.697],
-              3: [0.532, 0.599],
-              4: [0.466, 0.525],
-          }
-          lowerWav = wavelengts_geosat[band_key][0]
-          upperWav = wavelengts_geosat[band_key][1]
+            wavelengts_geosat = {
+                # band-key: [lowerBandEdge, upperBandEdge]
+                1: [0.770, 0.892],
+                2: [0.640, 0.697],
+                3: [0.532, 0.599],
+                4: [0.466, 0.525],
+            }
+            lowerWav = wavelengts_geosat[band_key][0]
+            upperWav = wavelengts_geosat[band_key][1]
 
         s.wavelength = Wavelength(lowerWav, upperWav) # type: ignore
 
@@ -642,13 +642,13 @@ class Correction:
         
         # Save logs
         logs = [
-          f'<6S band={band_key}>',
-          f'[BBOX NWLONG,NWLAT,SELONG,SELAT]{coords}',
-          "[6S inputs]", f"H2O: {h2o}", f"O3: {o3}", f"AOT: {aot}",
-          f"Altitude: {km}", f"Solar zenith angle: {solar_z}",
-          "[6S outputs]", f"EDIR: {Edir}", f"EDIF: {Edif}",
-          f"Lp: {Lp}", f"Absorb: {absorb}", f"Scatter: {scatter}",
-          f"Transmissivity (total): {tau2}", f'[formula] {formula}']
+            f'<6S band={band_key}>',
+            f'[BBOX NWLONG,NWLAT,SELONG,SELAT]{coords}',
+            "[6S inputs]", f"H2O: {h2o}", f"O3: {o3}", f"AOT: {aot}",
+            f"Altitude: {km}", f"Solar zenith angle: {solar_z}",
+            "[6S outputs]", f"EDIR: {Edir}", f"EDIF: {Edif}",
+            f"Lp: {Lp}", f"Absorb: {absorb}", f"Scatter: {scatter}",
+            f"Transmissivity (total): {tau2}", f'[formula] {formula}']
 
         return (formula, logs)
 
@@ -706,16 +706,16 @@ class Geosat:
         self.log_path = os.path.join(self.folder, 'atm_correction.log')
     
     def write_logs(self, lines: str | list):
-      """Open the log file and write the log info in it."""
-      log = open(self.log_path, 'a')
-      # Insert current datetime
-      c = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-      # Check if there are multiple lines to write
-      if type(lines) != type([]):
-        lines = [lines]
-      for line in lines:
-        # Insert log line
-        log.write(c + ' - ' + line + '\n')
+        """Open the log file and write the log info in it."""
+        log = open(self.log_path, 'a')
+        # Insert current datetime
+        c = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+        # Check if there are multiple lines to write
+        if type(lines) != type([]):
+            lines = [lines]
+        for line in lines:
+            # Insert log line
+            log.write(c + ' - ' + line + '\n')
 
     def get_minDn(self, img_path):
         """Get image bands min values (GDAL is required)"""
@@ -816,7 +816,7 @@ class Geosat:
 
         # Construct the final gdal_calc command
         try:
-          gdal_calc.Calc(calc=formulas, outfile=output_img, **args)
+            gdal_calc.Calc(calc=formulas, outfile=output_img, **args)
         except Exception as ex:
             ex_msg = f'The image {os.path.basename(output_img)} is already exist. Stop the image creation.'
             self.write_logs(ex_msg)
