@@ -61,7 +61,7 @@ The GEOSAT images are downloaded in zip folders. To unzip them, execute the foll
 import os
 import zipfile
 
-main_folder = r"D:\GEOSAT"
+main_folder = r"F:\GEOSAT\2022"
 
 def unzip(folder):
     """Unzip folders"""
@@ -71,11 +71,20 @@ def unzip(folder):
         unzip_folder = os.path.join(os.path.dirname(folder), unzip_folder_name)
         if not os.path.exists(unzip_folder):
             # Unzip
+            print(f'Extracting {unzip_folder_name}...')
             with zipfile.ZipFile(folder, 'r') as zip_ref:
                 zip_ref.extractall(unzip_folder)
 
+# List to save folders with errors in the unzipping process
+exceptions = []
 for folder in os.listdir(main_folder):
-    unzip(os.path.join(main_folder, folder))
+    try:
+        unzip(os.path.join(main_folder, folder))
+    except Exception as ex:
+        exceptions.append(folder)
+        print(ex)
+    
+print('The following folders were badly unzipped:\n', exceptions)
 ```
 
 ## Applying the correction
@@ -139,7 +148,7 @@ Chavez, P. S. & others. (1996). Image-based atmospheric corrections-revisited an
 
 Fernández, C., de Castro, C., Garcı́a, L., Calleja, M. E., Niño, R., Fraile, S., & Sousa, R. (2023). Evaluación del impacto de la superresolución sobre imágenes multiespectrales GEOSAT-2. Revista de Teledetección, 61, 83–96.
 
-Fernández, C., De Castro, C., Calleja, M. E., Sousa, R., Niño, R., García, L., Fraile, S., & Molina, I. (2023). GEOSAT 2 Atmospherically Corrected Images: Algorithm Validation. ECRS 2023, 64. https://doi.org/10.3390/ECRS2023-16296
+Fernández, C., De Castro, C., Calleja, M. E., Sousa, R., Niño, R., García, L., Fraile, S., & Molina, I. (2023). GEOSAT 2 Atmospherically Corrected Images: Algorithm Validation. ECRS 2023, 64. <https://doi.org/10.3390/ECRS2023-16296>
 
 Mahiny, A. S., & Turner, B. J. (2007). A comparison of four common atmospheric correction methods. Photogrammetric Engineering & Remote Sensing, 73(4), 361–368.
 
@@ -150,4 +159,3 @@ Thuillier, G., Hersé, M., Labs, D., Foujols, T., Peetermans, W., Gillotay, D., 
 Vermote, E. F., Tanré, D., Deuze, J. L., Herman, M., & Morcette, J.-J. (1997). Second simulation of the satellite signal in the solar spectrum, 6S: An overview. IEEE Transactions on Geoscience and Remote Sensing, 35(3), 675–686.
 
 Wilson, R. T. (2013). Py6S: A Python interface to the 6S radiative transfer model. Computers & Geosciences, 51, 166–171.
-
