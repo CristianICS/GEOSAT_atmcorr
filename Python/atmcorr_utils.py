@@ -600,8 +600,8 @@ class Correction:
         # s.altitudes.set_sensor_satellite_level()
         s.altitudes.set_sensor_custom_altitude(99) # 100km is the maximun altitude
 
-        # Wavelenght conditions
-        # Wavelenght spectral response is computed with Wavelength()
+        # Wavelength conditions
+        # Wavelength spectral response is computed with Wavelength()
         # passing the start and end band wavelength (micrometers)
         # - Wavelength function: 
         # https://github.com/robintw/Py6S/blob/master/Py6S/Params/wavelength.py
